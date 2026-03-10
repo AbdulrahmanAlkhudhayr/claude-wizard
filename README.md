@@ -4,18 +4,23 @@
 
 Claude Code is brilliant at writing code quickly. But speed without structure leads to bugs, race conditions, and regressions that eat the time you saved — and then some. `/wizard` changes the operating mode: Claude reads before writing, tests before implementing, and attacks its own code before committing.
 
-## What it does
+## The ingredients
 
-`/wizard` is a [Claude Code skill](https://docs.anthropic.com/en/docs/claude-code/skills) that transforms how Claude approaches complex tasks. Instead of jumping straight to code, it follows an 8-phase development cycle:
+`/wizard` isn't just a prompt — it's a workflow built on specific ingredients that work together:
 
-1. **Understand** — Read project docs, assess complexity, create a plan
-2. **Explore** — Search the codebase, verify assumptions, identify patterns
-3. **Test first** — Write failing tests before any implementation (TDD)
-4. **Implement** — Minimal code to pass tests, following existing conventions
-5. **Verify** — Run the appropriate test suite, fix regressions
-6. **Document** — Update docs and GitHub issues
-7. **Self-review** — Adversarial checklist: race conditions, edge cases, security
-8. **PR quality gate** — Monitor automated review bots, resolve all findings
+1. **`CLAUDE.md`** — Your project's rules file. This is where you define coding standards, naming conventions, architecture decisions, and anything Claude should always know. `/wizard` reads this first, every time.
+
+2. **GitHub Issues** — Every feature or bug gets a GitHub issue (or epic) *before* coding starts. `/wizard` creates these for you with acceptance criteria, tracks progress by checking off boxes as it works, and references the issue in every commit. The issue is the source of truth.
+
+3. **Codebase-first exploration** — Before writing a single line, `/wizard` reads the existing code, greps for methods and relationships, and verifies assumptions. No hallucinated function calls. No invented APIs.
+
+4. **TDD, no exceptions** — Failing tests first, then minimal implementation, then verify. Every time. The tests use a mutation-testing mindset — they assert specific values that would break if the code changed, not just `assertTrue(worked)`.
+
+5. **Feature branch to main** — Clean branch, focused PR, one concern at a time. No stacked branches, no tangled dependencies.
+
+6. **Bug Bot cycle** — After opening the PR, `/wizard` monitors your automated code review bot (Bug Bot, CodeRabbit, etc.), reads every finding, fixes valid issues, replies to false positives, and repeats until the status is clean. No unresolved findings, ever.
+
+7. **CI (your setup)** — Your test suite, your pipeline, your rules. `/wizard` runs affected tests locally before pushing, but the full CI suite depends on your project. I use GitHub Actions — GitHub for everything.
 
 Each phase has a checkpoint. Claude won't rush ahead.
 
@@ -120,14 +125,18 @@ Edit `.claude/skills/wizard/SKILL.md` directly — it's your copy.
 
 Claude Code [skills](https://docs.anthropic.com/en/docs/claude-code/skills) are markdown files that activate when invoked with `/skillname`. They inject additional context and instructions into Claude's prompt, changing its behavior for the duration of the task.
 
-`/wizard` works by:
-1. Shifting Claude's identity from "coder" to "architect"
-2. Enforcing a phased workflow with explicit checkpoints
-3. Requiring TDD — tests before implementation
-4. Adding adversarial self-review before every commit
-5. Ensuring automated review findings are resolved, not ignored
+`/wizard` works by wiring the ingredients above into an enforced sequence:
 
-There's no magic. It's a well-structured prompt that encodes the habits of senior engineers into a repeatable process.
+1. **Read `CLAUDE.md`** and project docs — understand the rules before touching anything
+2. **Find or create a GitHub issue** — define what "done" looks like with acceptance criteria
+3. **Explore the codebase** — grep, search, verify. Never assume a method or relationship exists
+4. **Write failing tests** — TDD with mutation-resistant assertions
+5. **Implement the minimum** — make tests pass, follow existing patterns, no gold-plating
+6. **Run the test suite** — fix regressions before moving on
+7. **Adversarial self-review** — attack your own code for race conditions, null edges, security holes
+8. **Open a PR, run the Bug Bot cycle** — monitor findings, fix or reply, repeat until clean
+
+There's no magic. It's a well-structured prompt that encodes the habits of senior engineers into a repeatable process. The key insight is that Claude doesn't lack the *ability* to do these things — it lacks the *process* to do them consistently. `/wizard` is that process.
 
 ## Origin
 
