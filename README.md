@@ -32,9 +32,11 @@ Each phase has a checkpoint. Claude won't rush ahead.
 > Claude: *immediately writes 400 lines of code, misses a race condition, hard-codes a string that should be a constant, skips tests*
 
 **With `/wizard`:**
-> You: `/wizard Add a transfer status tracking feature`
+> You: *creates GitHub issue #164 with acceptance criteria*
 >
-> Claude: *reads the codebase, creates a GitHub issue, writes failing tests, implements with locking to prevent concurrent conflicts, runs the test suite, self-reviews for edge cases, opens a PR, resolves all bot findings*
+> You: `/wizard implement #164 — transfer status tracking`
+>
+> Claude: *reads the codebase, writes failing tests, implements with locking to prevent concurrent conflicts, runs the test suite, self-reviews for edge cases, opens a PR, resolves all bot findings, checks off acceptance criteria*
 
 The output is the same — working code. But the `/wizard` code ships without the 2am "why is this broken in production" follow-up.
 
