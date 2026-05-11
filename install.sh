@@ -5,7 +5,7 @@ set -e
 # Installs the wizard skill into your project's .claude/skills/ directory
 
 SKILL_DIR=".claude/skills/wizard"
-REPO_URL="https://raw.githubusercontent.com/vlad-ko/claude-wizard/main/skill"
+REPO_URL="https://raw.githubusercontent.com/AbdulrahmanAlkhudhayr/claude-wizard/main/skill"
 
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -45,7 +45,7 @@ mkdir -p "$TARGET"
 # Download files
 echo "Downloading skill files..."
 
-for file in SKILL.md CHECKLISTS.md PATTERNS.md; do
+for file in SKILL.md CHECKLISTS.md PATTERNS.md DOCS_PACK.md; do
     if command -v curl > /dev/null 2>&1; then
         curl -sL "${REPO_URL}/${file}" -o "${TARGET}/${file}"
     elif command -v wget > /dev/null 2>&1; then

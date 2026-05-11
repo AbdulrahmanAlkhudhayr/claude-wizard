@@ -66,16 +66,17 @@ No contribution is too small. A single-line fix to a checklist item that saved y
 **One command** from your project root:
 
 ```bash
-curl -sL https://raw.githubusercontent.com/vlad-ko/claude-wizard/main/install.sh | bash
+curl -sL https://raw.githubusercontent.com/AbdulrahmanAlkhudhayr/claude-wizard/main/install.sh | bash
 ```
 
 Or manually:
 
 ```bash
 mkdir -p .claude/skills/wizard
-curl -sL https://raw.githubusercontent.com/vlad-ko/claude-wizard/main/skill/SKILL.md -o .claude/skills/wizard/SKILL.md
-curl -sL https://raw.githubusercontent.com/vlad-ko/claude-wizard/main/skill/CHECKLISTS.md -o .claude/skills/wizard/CHECKLISTS.md
-curl -sL https://raw.githubusercontent.com/vlad-ko/claude-wizard/main/skill/PATTERNS.md -o .claude/skills/wizard/PATTERNS.md
+curl -sL https://raw.githubusercontent.com/AbdulrahmanAlkhudhayr/claude-wizard/main/skill/SKILL.md -o .claude/skills/wizard/SKILL.md
+curl -sL https://raw.githubusercontent.com/AbdulrahmanAlkhudhayr/claude-wizard/main/skill/CHECKLISTS.md -o .claude/skills/wizard/CHECKLISTS.md
+curl -sL https://raw.githubusercontent.com/AbdulrahmanAlkhudhayr/claude-wizard/main/skill/PATTERNS.md -o .claude/skills/wizard/PATTERNS.md
+curl -sL https://raw.githubusercontent.com/AbdulrahmanAlkhudhayr/claude-wizard/main/skill/DOCS_PACK.md -o .claude/skills/wizard/DOCS_PACK.md
 ```
 
 ## Usage
@@ -108,12 +109,15 @@ You can also invoke it mid-conversation:
 | `SKILL.md` | The core skill — 8-phase development methodology |
 | `CHECKLISTS.md` | Quick-reference checklists for each phase |
 | `PATTERNS.md` | Common patterns and anti-patterns with examples |
+| `DOCS_PACK.md` | Curated docs links for your stack (Django + React by default) |
 
 ## Customization
 
 The skill is designed to be extended. Add your project-specific patterns:
 
 **Framework conventions** — Add your framework's testing commands, directory structure, and coding standards to Phase 2 and Phase 4.
+
+**Docs pack** — Edit `.claude/skills/wizard/DOCS_PACK.md` with the official docs for your stack (keep it short and high-signal). Phase 1 expects you to “read relevant docs”; this file is a good default target.
 
 **Logging patterns** — Replace the generic logging guidance with your project's specific logging approach.
 

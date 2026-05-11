@@ -4,6 +4,7 @@
 
 - [ ] Read CLAUDE.md
 - [ ] Read relevant project docs
+- [ ] If applicable, read `DOCS_PACK.md` (Django/React docs links)
 - [ ] Assessed complexity (simple/medium/complex)
 - [ ] Created/found GitHub issue (for medium+ tasks)
 - [ ] Created todo list with phases
